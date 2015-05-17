@@ -1,7 +1,7 @@
 package rakerparser
 
 import (
-    "rakerlexer"
+    "github.com/swizzard/rakerdirz/rakerlexer"
     "path/filepath"
 )
 
@@ -51,6 +51,7 @@ func NewParser (rootDirName string, tokens chan rakerlexer.Token) (newParser Par
 }
 
 func (parser *Parser) PopDir () {
+    _ = "breakpoint"
     topDirs := parser.topDirs
     if len(topDirs) > 0 {
         // get the last dir in topDirs
@@ -76,6 +77,7 @@ func (parser *Parser) ParseTab () {
 }
 
 func (parser *Parser) ParseName (dirName string) {
+    _ = "breakpoint"
     newDir := NewDirectory(dirName)
     tabDiff := parser.maxTabs - parser.tabCount
     for i := uint(0); i <= tabDiff; i++ {
@@ -87,6 +89,7 @@ func (parser *Parser) ParseName (dirName string) {
 }
 
 func (parser *Parser) ParseToken(token rakerlexer.Token) {
+    _ = "breakpoint"
     switch {
         case token.TokenType == rakerlexer.TAB:
                 parser.ParseTab()
@@ -98,6 +101,7 @@ func (parser *Parser) ParseToken(token rakerlexer.Token) {
 }
 
 func (parser *Parser) StartParsing () {
+    _ = "breakpoint"
     Parse:
         for {
             token := <-parser.tokens

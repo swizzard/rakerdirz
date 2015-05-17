@@ -1,12 +1,12 @@
-package rakerdirz
+package main
 
 import (
     "bufio"
     "flag"
     "fmt"
     "os"
-    "rakerparser"
-    "rakerlexer"
+    "github.com/swizzard/rakerdirz/rakerparser"
+    "github.com/swizzard/rakerdirz/rakerlexer"
 )
 type Flags struct {
     dryRun bool
@@ -29,15 +29,17 @@ func makeFlags () (flags Flags) {
 
 func main() {
     // get CLI args
+    _ = "breakpoint"
     flags := makeFlags()
     flag.Parse()
     inputFilePath := flag.Arg(0)
+    fmt.Println(inputFilePath)
     if inputFilePath == "" {
         inputFilePath = flags.inputFilePath
     }
     rootDir := flags.rootDir
 
-    var errString = fmt.Sprintf("Error reading file %s", flags.inputFilePath)
+    var errString = fmt.Sprintf("Error reading file %s\n", flags.inputFilePath)
 
     // initialize lexer & parser
     tokens := make(chan rakerlexer.Token)
@@ -48,6 +50,7 @@ func main() {
     inputFile, err := os.Open(inputFilePath)
     if err != nil {
         print(errString)
+        os.Exit(1)
     } else {
         rdr := bufio.NewReader(inputFile)
         go lexer.ParseString(rdr)

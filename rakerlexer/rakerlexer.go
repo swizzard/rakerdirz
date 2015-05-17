@@ -129,6 +129,7 @@ func (lexer *Lexer) ParseToken (chr rune) {
 func (lexer *Lexer) ParseString (rdr io.RuneReader) {
     lexer.state.RemoveFlag(STOPPED)
     idx := 0
+    _ = "breakpoint"
     Parse:
         for {
             if (lexer.state.HasFlag(STOPPED) || lexer.state.HasFlag(IN_ERROR)) {
